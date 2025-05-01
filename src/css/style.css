@@ -1,0 +1,704 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+:root {
+    /* Premium Color System */
+    --primary: #0EA5E9;
+    --primary-dark: #0284C7;
+    --primary-light: #E0F2FE;
+    --accent: #06B6D4;
+    --accent-dark: #0891B2;
+    --accent-light: #CFFAFE;
+    --success: #10B981;
+    --warning: #F59E0B;
+    --danger: #EF4444;
+    
+    /* Neutral Colors */
+    --gray-50: #F8FAFC;
+    --gray-100: #F1F5F9;
+    --gray-200: #E2E8F0;
+    --gray-300: #CBD5E1;
+    --gray-400: #94A3B8;
+    --gray-500: #64748B;
+    --gray-600: #475569;
+    --gray-700: #334155;
+    --gray-800: #1E293B;
+    --gray-900: #0F172A;
+    
+    /* Glass Effects */
+    --glass-bg: rgba(255, 255, 255, 0.98);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-shadow: 0 8px 32px rgba(15, 23, 42, 0.08);
+    
+    /* Shadows */
+    --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
+    --shadow-sm: 0 2px 4px rgba(15, 23, 42, 0.06);
+    --shadow-md: 0 4px 8px rgba(15, 23, 42, 0.08);
+    --shadow-lg: 0 8px 16px rgba(15, 23, 42, 0.1);
+    --shadow-xl: 0 12px 24px rgba(15, 23, 42, 0.12);
+    
+    /* Dimensions */
+    --header-height: 72px;
+    --top-bar-height: 36px;
+    --border-radius-sm: 8px;
+    --border-radius-md: 12px;
+    --border-radius-lg: 16px;
+    --border-radius-full: 9999px;
+}
+
+/* Animations */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.1); opacity: 1; }
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: var(--gray-900);
+    line-height: 1.5;
+    background: var(--gray-50);
+}
+
+/* Header */
+.header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background: var(--glass-bg);
+    backdrop-filter: saturate(180%) blur(12px);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+/* Top Bar */
+.top-bar {
+    height: var(--top-bar-height);
+    background: var(--gray-900);
+    position: relative;
+    overflow: hidden;
+}
+
+.top-bar::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, 
+        var(--primary) 0%,
+        var(--accent) 50%,
+        var(--primary) 100%
+    );
+    opacity: 0.1;
+}
+
+.top-bar-content {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Contact Links */
+.contact-group {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.contact-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--gray-100);
+    padding: 4px 12px;
+    border-radius: var(--border-radius-full);
+    background: rgba(255, 255, 255, 0.06);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.contact-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    font-size: 14px;
+    color: var(--accent);
+    position: relative;
+    z-index: 2;
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.icon-glow {
+    position: absolute;
+    inset: -1px;
+    background: var(--accent);
+    border-radius: 50%;
+    opacity: 0.15;
+    filter: blur(1px);
+    pointer-events: none;
+    z-index: 1;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.contact-info {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+}
+
+.contact-link:hover {
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateY(-1px);
+}
+
+.contact-link:hover .icon-glow {
+    opacity: 0.25;
+    transform: scale(1.2);
+}
+
+/* Social Links */
+.social-group {
+    display: flex;
+    gap: 8px;
+}
+
+.social-link {
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gray-100);
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 50%;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.social-link i {
+    font-size: 13px;
+    position: relative;
+    z-index: 2;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.social-glow {
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    opacity: 0;
+    filter: blur(1px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.social-link:hover {
+    color: #fff;
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.social-link:hover i {
+    transform: scale(1.1);
+}
+
+.social-link:hover .social-glow {
+    opacity: 0.5;
+}
+
+/* Specific social icons */
+.social-link[aria-label="WhatsApp"]:hover {
+    color: #25D366;
+}
+
+.social-link[aria-label="WhatsApp"]:hover .social-glow {
+    background: #25D366;
+}
+
+.social-link[aria-label="Instagram"]:hover {
+    color: #E4405F;
+}
+
+.social-link[aria-label="Instagram"]:hover .social-glow {
+    background: linear-gradient(45deg, #F58529, #DD2A7B, #8134AF, #515BD4);
+}
+
+.social-link[aria-label="Facebook"]:hover {
+    color: #1877F2;
+}
+
+.social-link[aria-label="Facebook"]:hover .social-glow {
+    background: #1877F2;
+}
+
+/* Navbar */
+.navbar {
+    height: var(--header-height);
+    padding: 0;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.navbar .container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+}
+
+/* Logo */
+.navbar-brand {
+    margin-right: 64px;
+    position: relative;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.logo-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 36px;
+    width: auto;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: brightness(0.95);
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.logo-glow {
+    position: absolute;
+    inset: -8px;
+    background: var(--primary);
+    border-radius: var(--border-radius-sm);
+    opacity: 0;
+    filter: blur(12px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.navbar-brand:hover .logo {
+    transform: translateY(-1px);
+    filter: brightness(1);
+}
+
+.navbar-brand:hover .logo-glow {
+    opacity: 0.15;
+}
+
+/* Navigation */
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-right: auto;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: 6px 12px;
+    color: var(--gray-600);
+    border-radius: var(--border-radius-md);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.nav-link-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: var(--gray-100);
+    border-radius: var(--border-radius-md);
+    color: var(--gray-500);
+    font-size: 15px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 2;
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.nav-icon i {
+    position: relative;
+    z-index: 2;
+}
+
+.nav-icon .icon-glow {
+    inset: 0;
+    opacity: 0;
+    filter: blur(1px);
+}
+
+.nav-text {
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: -0.01em;
+}
+
+.nav-link:hover {
+    color: var(--primary);
+    background: var(--primary-light);
+}
+
+.nav-link:hover .nav-icon {
+    color: var(--primary);
+    background: #fff;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+.nav-link:hover .icon-glow {
+    opacity: 0.2;
+}
+
+/* CTA Button */
+.nav-cta .btn-primary {
+    padding: 10px 20px;
+    background: var(--primary);
+    border: none;
+    border-radius: var(--border-radius-full);
+    color: #fff;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: -0.01em;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    z-index: 2;
+}
+
+.btn-icon {
+    font-size: 15px;
+}
+
+.btn-glow {
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+}
+
+.nav-cta .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25);
+}
+
+.nav-cta .btn-primary:hover .btn-glow {
+    opacity: 1;
+}
+
+/* Mobile Menu */
+.navbar-toggler {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: var(--gray-100);
+    color: var(--gray-600);
+    border-radius: var(--border-radius-md);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar-toggler:hover {
+    background: var(--primary-light);
+    color: var(--primary);
+}
+
+/* Responsive */
+@media (min-width: 1200px) {
+    .logo {
+        height: 42px;
+    }
+    
+    .logo-glow {
+        inset: -10px;
+    }
+}
+
+@media (max-width: 991px) {
+    .navbar-collapse {
+        position: fixed;
+        top: calc(var(--header-height) + var(--top-bar-height));
+        left: 16px;
+        right: 16px;
+        background: var(--glass-bg);
+        backdrop-filter: saturate(180%) blur(12px);
+        padding: 16px;
+        border-radius: var(--border-radius-lg);
+        border: 1px solid var(--gray-200);
+        box-shadow: var(--shadow-xl);
+        opacity: 0;
+        transform: translateY(-8px);
+        pointer-events: none;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .navbar-collapse.show {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+    
+    .navbar-nav {
+        flex-direction: column;
+        gap: 4px;
+        margin: 0;
+        width: 100%;
+    }
+    
+    .nav-link {
+        width: 100%;
+        padding: 10px 16px;
+    }
+    
+    .nav-cta {
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px solid var(--gray-200);
+        width: 100%;
+    }
+    
+    .nav-cta .btn-primary {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 20px;
+    }
+    
+    .navbar-brand {
+        margin-right: auto;
+    }
+    
+    .logo {
+        height: 32px;
+    }
+    
+    .logo-glow {
+        inset: -6px;
+    }
+    
+    .nav-icon {
+        width: 28px;
+        height: 28px;
+        font-size: 14px;
+    }
+    
+    .nav-text {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --header-height: 64px;
+        --top-bar-height: 32px;
+    }
+    
+    .contact-group {
+        display: none;
+    }
+    
+    .social-group {
+        width: 100%;
+        justify-content: center;
+        gap: 16px;
+    }
+    
+    .navbar-brand {
+        margin-right: auto;
+    }
+    
+    .logo {
+        height: 28px;
+    }
+    
+    .logo-glow {
+        inset: -4px;
+    }
+    
+    .nav-icon {
+        width: 28px;
+        height: 28px;
+        font-size: 14px;
+    }
+    
+    .nav-text {
+        font-size: 13px;
+    }
+}
+
+/* Scroll Effects */
+.header.scrolled {
+    box-shadow: var(--shadow-lg);
+    transform: none !important;
+}
+
+.header.scrolled .top-bar {
+    height: 0;
+    overflow: hidden;
+}
+
+/* Custom Cursor */
+.custom-cursor {
+    width: 20px;
+    height: 20px;
+    background: var(--primary);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    mix-blend-mode: difference;
+    z-index: 9999;
+    opacity: 0.5;
+    transition: transform 0.1s ease;
+}
+
+.cursor-hover {
+    transform: scale(1.5);
+    background: #fff;
+}
+
+/* Accessibility Improvements */
+:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+    outline: none;
+}
+
+:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* Fade Animation */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Performance Optimizations */
+.logo,
+.nav-icon,
+.contact-icon,
+.social-link {
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .fade-in {
+        transition: none !important;
+        transform: none !important;
+    }
+    
+    .header.scrolled {
+        transform: none !important;
+    }
+}
+
+/* Fallbacks for older browsers */
+@supports not (backdrop-filter: blur(12px)) {
+    .header {
+        background: rgba(255, 255, 255, 0.95);
+    }
+    
+    .navbar-collapse {
+        background: rgba(255, 255, 255, 0.95);
+    }
+}
+
+/* Fix for Safari mobile */
+@supports (-webkit-touch-callout: none) {
+    .header {
+        background: var(--glass-bg);
+    }
+}
+
+/* Fix for Firefox */
+@-moz-document url-prefix() {
+    .icon-glow,
+    .social-glow,
+    .btn-glow {
+        filter: blur(2px);
+    }
+}
